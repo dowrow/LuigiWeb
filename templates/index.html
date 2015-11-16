@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Lanzador de Tareas de Luigi</title>
+</head>
+<body>
+    <h1>Lanzador de tareas</h1>
+
+    <h2>Categoría</h2>
+
+    <select id="categoria">
+    {% for categoria in categorias %}
+        <option value="{{ categoria.fichero }}">{{ categoria.nombre }}</option>
+    {% else %}
+        <option value="No hay categorias">No hay categorias</option>
+    {% endfor %}
+    </select>
+
+    <br/><br/>
+
+    <h2>Tarea</h2>
+    <select id="tarea">
+    </select>
+
+    <h2>Parámetros</h2>
+    <label></label>
+    <input id="parametro-" type="text"/>
+
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
