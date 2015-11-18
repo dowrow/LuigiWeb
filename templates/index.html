@@ -3,30 +3,77 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Lanzador de Tareas de Luigi</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" >
+    <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
-    <h1>Lanzador de tareas</h1>
+    <section class="container">
+        <div class="row">
+        </div>
+        <section class="col-md-6 col-md-offset-3" id="acceso">
+            <h2>Contraseña de acceso</h2>
+            <br/>
+            <input class="col-md-4 form-control" id="password" type="password" max="99"/>
+            <br/><br/>
+            <button class="col-md-2 col-md-offset-10 btn btn-primary" id="acceder">Acceder</button>
+        </section>
 
-    <h2>Categoría</h2>
+        <section class="col-md-6 col-md-offset-3" id="panel">
+            <h1>Lanzador de tareas</h1>
 
-    <select id="categoria">
-    {% for categoria in categorias %}
-        <option value="{{ categoria.fichero }}">{{ categoria.nombre }}</option>
-    {% else %}
-        <option value="No hay categorias">No hay categorias</option>
-    {% endfor %}
-    </select>
+            <br/>
 
-    <br/><br/>
+            <h2>Selección de Categoría</h2>
+            <label>Categoría: </label>
+            <select class="form-control" id="categoria">
+            {% for categoria in categorias %}
+                <option value="{{ categoria.fichero }}">{{ categoria.nombre }}</option>
+            {% else %}
+                <option value="No hay categorias">No hay categorias</option>
+            {% endfor %}
+            </select>
 
-    <h2>Tarea</h2>
-    <select id="tarea">
-    </select>
+            <br/><br/>
 
-    <h2>Parámetros</h2>
-    <label></label>
-    <input id="parametro-" type="text"/>
+            <h2>Selección de Tarea</h2>
+            <label>Tarea: </label>
+            <select class="form-control" id="tarea">
+            </select>
 
+            <br/><br/>
+
+            <label>Descripción: </label>
+            <p id="comentario" class="alert alert-info" role="alert">
+                Test
+            </p>
+
+            <br/>
+
+            <h2>Parámetros</h2>
+            <section id="parametros"></section>
+
+            <br/><br/>
+
+            <button class="col-md-3 col-md-offset-9 btn btn-primary" id="lanzar">Lanzar tarea</button>
+
+        </section>
+
+        <output id="success" class="col-md-6 col-md-offset-3" id="salida">
+            <br/><br/>
+            <p class="alert alert-success" id="status">¡La tarea se lanzó correctamente! :D</p>
+            <p class="text-center">
+                <img class="img-rounded" id="gatito" src="http://thecatapi.com/api/images/get?format=src&type=jpg&size=small"></img>
+            </p>
+            <a class="col-md-2 col-md-offset-10 btn btn-primary" href="javascript:location='/'">Volver</a>
+        </output>
+
+        <output id="error" class="col-md-6 col-md-offset-3" id="salida">
+            <br/><br/>
+            <p class="alert alert-danger" id="status">Se produjo un error lanzando la tarea.</p>
+        </output>
+
+    </section>
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="js/index.js"></script>

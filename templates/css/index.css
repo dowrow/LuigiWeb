@@ -1,0 +1,7 @@
+.container {
+    margin: 50px;
+}
+
+label {
+    text-transform: capitalize;
+}
