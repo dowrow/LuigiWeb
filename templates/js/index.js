@@ -63,6 +63,7 @@
                 tareas.push(tarea);
             }
         });
+
         return tareas;
     }
 
@@ -76,25 +77,30 @@
         var parametros = [],
             lineasClase = contenido.split('class ' + nombreTarea)[1].split('class ')[0].split(/\r?\n/);
 
+
         lineasClase.forEach(function (lineaClase) {
             if (lineaClase.indexOf('luigi.Parameter(') > -1) {
-                var nombreParametro = lineaClase.split(' = ')[0],
+                var nombreParametro = lineaClase.split(' = ')[0].replace('\t', ''),
                     defaultValue = '';
                 if (lineaClase.indexOf('luigi.Parameter(default="') > -1) {
-                    defaultValue = lineaClase.split('luigi.Parameter(default="')[1].split('")')[0];
+                    defaultValue = lineaClase.split('luigi.Parameter(default="')[1].split('")')[0].replace('\t', '');
                 }
-                parametros.push({
-                    'nombre': nombreParametro.replace('\t', ''),
-                    'valor': defaultValue.replace('\t', '')
-                });
+
+                if (nombreParametro[0] !== '#') {
+                    parametros.push({
+                        'nombre': nombreParametro,
+                        'valor': defaultValue
+                    });
+                }
+
             }
         });
         return parametros;
     }
 
     function updateComentario() {
-        var fichero = $('#categoria').val(),
-            tarea = $('#tarea').val();
+        var fichero = $('#categoria option:selected').val(),
+            tarea = $('#tarea option:selected').val();
 
         $.get(tareasEndpoint + fichero)
             .done(function (data) {
@@ -105,8 +111,8 @@
     }
 
     function updateParametros() {
-        var fichero = $('#categoria').val(),
-            tarea = $('#tarea').val();
+        var fichero = $('#categoria option:selected').val(),
+            tarea = $('#tarea option:selected').val();
 
         $.get(tareasEndpoint + fichero)
             .done(function (data) {
@@ -119,9 +125,9 @@
                 }
                 parametros.forEach(function (parametro) {
                     htmlParametro = '<label>' + parametro.nombre
-                                        + ': </label><input class="parametro form-control" name="'
-                                        + parametro.nombre + '" type="text" value="'
-                                        + parametro.valor + '"/><br/>';
+                                    + ': </label><input class="parametro form-control" name="'
+                                    + parametro.nombre + '" type="text" value="'
+                                    + parametro.valor + '"/><br/>';
                     $('#parametros').append(htmlParametro);
                 });
             });
@@ -144,16 +150,25 @@
             });
     }
 
-    function onLoad() {
+    function esconderPaneles() {
         $('#panel').toggle();
         $('#success').toggle();
         $('#error').toggle();
-        acceder();
-        updateTareas();
+    }
+
+    function capturarEventos() {
         $('#categoria').change(updateTareas);
         $('#tarea').change(updateParametros);
+        $('#tarea').change(updateComentario);
         $('#acceder').click(acceder);
         $('#lanzar').click(lanzarTarea);
+    }
+
+    function onLoad() {
+        esconderPaneles();
+        acceder();
+        updateTareas();
+        capturarEventos();
     }
 
     $(onLoad());

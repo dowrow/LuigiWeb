@@ -53,7 +53,7 @@ def lanzarTarea(categoria, tarea):
     passwordHash = hashlib.sha1(password).hexdigest()
     if passwordHash == PASSWORD_SHA1_HASH:
         try:
-            # os.system(llamada)
+            os.system('cd .. && ' + llamada + ' &')
             return 'ok'
         except e:
             return e
@@ -72,4 +72,4 @@ def index():
     return render_template('index.html', categorias=categorias)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=PORT)
+    app.run(debug=True, port=PORT, host='0.0.0.0')
