@@ -42,7 +42,7 @@ def acceder():
 
 @app.route('/lanzar/<categoria>/<tarea>', methods=['POST'])
 def lanzarTarea(categoria, tarea):
-    llamada = 'PYTHONPATH=\'\' luigi --module ' + categoria + ' ' + tarea + ' --local-scheduler'
+    llamada = 'PYTHONPATH=\'\' luigi --module ' + categoria + ' ' + tarea;
     jsonObject = request.get_json()
     password = jsonObject['password']
     parametros = jsonObject['parametros[]']
