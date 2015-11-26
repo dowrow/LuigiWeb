@@ -58,7 +58,7 @@
             lineas = contenido.split(/\r?\n/);
 
         lineas.forEach(function (linea) {
-            if (linea.indexOf('class ') > -1) {
+            if (linea.indexOf('class ') > -1 && linea.indexOf('(luigi.Task)') > -1) {
                 var tarea = linea.split(' ')[1].split('(')[0];
                 tareas.push(tarea);
             }
